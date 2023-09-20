@@ -32,7 +32,7 @@ using namespace std;
  *     s : new position, in meters
  **************************************************/
  // your function goes here
-int computeDistance(double s, double v, double a, double t) {
+double computeDistance(double s, double v, double a, double t) {
     return s + v * t + 1 / 2 * a * t ^ 2;
 }
  /**************************************************
@@ -63,7 +63,9 @@ int computeDistance(double s, double v, double a, double t) {
    *     v : new velocity, in meters/second
    ***********************************************/
    // your function goes here????
-
+double computeVelocity(double v, double a, double t) {
+    return v + a * t;
+}
 
    /***********************************************
     * COMPUTE VERTICAL COMPONENT
@@ -84,7 +86,7 @@ int computeDistance(double s, double v, double a, double t) {
     *     y : the vertical component of the total
     ***********************************************/
     // your function goes here
-
+int computeVerticalComponent(double)
     /***********************************************
      * COMPUTE HORIZONTAL COMPONENT
      * Find the horizontal component of a velocity or acceleration.
