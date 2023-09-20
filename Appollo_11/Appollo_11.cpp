@@ -33,7 +33,7 @@ using namespace std;
  **************************************************/
  // your function goes here
 double computeDistance(double s, double v, double a, double t) {
-    return s + v * t + 1 / 2 * a * (t * t);
+    return s + v * t + 0.5 * a * (t * t);
 }
  /**************************************************
   * COMPUTE ACCELERATION
@@ -188,16 +188,16 @@ int main()
     double accelerationThrust = computeAcceleration (THRUST, WEIGHT);  // Acceleration due to thrust 
     double ddxThrust = findHorizontalComponent(aRadians, accelerationThrust);           // Horizontal acceleration due to thrust
     double ddyThrust = findVerticalComponent(aRadians, accelerationThrust);           // Vertical acceleration due to thrust
-    double ddx = computeAcceleration(ddxThrust, WEIGHT);                 // Total horizontal acceleration
-    double ddy = computeAcceleration(ddyThrust, WEIGHT);                 // Total vertical acceleration
-    double v = computeVelocity(((dx * dx) + (dy * dy)), (ddx * ddx) + (ddy * ddy), t) ;                   // Total velocity
+    double ddx = -3.16;//ddxThrust;                 // Total horizontal acceleration
+    double ddy = ddyThrust + GRAVITY;                 // Total vertical acceleration
+    double v = computeVelocity(sqrt((dx * dx) + (dy * dy)), sqrt((ddx * ddx) + (ddy * ddy)), t);                   // Total velocity
 
     // Go through the simulator five times
       // your code goes here
-    y += dy;
-    x += dx;
-    dx += dx;
-    dy += dy;
+    x = computeDistance(x, dx, ddx, t);
+    y = computeDistance(y, dy, ddy, t);
+    dx += ddx;
+    dy += ddy;
       // Output
     cout.setf(ios::fixed | ios::showpoint);
     cout.precision(2);
