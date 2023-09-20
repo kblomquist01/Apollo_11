@@ -33,7 +33,7 @@ using namespace std;
  **************************************************/
  // your function goes here
 double computeDistance(double s, double v, double a, double t) {
-    return s + v * t + 1 / 2 * a * t ^ 2;
+    return s + v * t + 1 / 2 * a * (t * t);
 }
  /**************************************************
   * COMPUTE ACCELERATION
@@ -47,6 +47,11 @@ double computeDistance(double s, double v, double a, double t) {
   *     a : acceleration, in meters/second^2
   ***************************************************/
   // your function goes here
+  double computeAcceleration(double f, double m)
+  {
+      double a = f / m;
+      return a;
+  }
 
   /***********************************************
    * COMPUTE VELOCITY
@@ -62,7 +67,7 @@ double computeDistance(double s, double v, double a, double t) {
    * OUTPUT
    *     v : new velocity, in meters/second
    ***********************************************/
-   // your function goes here????
+   // your function goes here
 double computeVelocity(double v, double a, double t) {
     return v + a * t;
 }
@@ -86,8 +91,9 @@ double computeVelocity(double v, double a, double t) {
     *     y : the vertical component of the total
     ***********************************************/
     // your function goes here
-https://prod.liveshare.vsengsaas.visualstudio.com/join?A7D3D3F14E67CA5E2837E531B428A7B93F3C
-int computeVerticalComponent(double)
+int findVerticalComponent(double a, double total) {
+    return cos(a) * total;
+}
     /***********************************************
      * COMPUTE HORIZONTAL COMPONENT
      * Find the horizontal component of a velocity or acceleration.
@@ -107,7 +113,9 @@ int computeVerticalComponent(double)
      *     x : the vertical component of the total
      ***********************************************/
      // your function goes here
-
+double findHorizontalComponent(double a, double total) {
+    return sin(a) * total;
+}
      /************************************************
       * COMPUTE TOTAL COMPONENT
       * Given the horizontal and vertical components of
@@ -128,7 +136,9 @@ int computeVerticalComponent(double)
       *    total : total component
       ***********************************************/
       // your function goes here
-
+double findTotalComponent(int x, int y) {
+    return x ^ 2 + y ^ 2;
+}
 
       /*************************************************
        * RADIANS FROM DEGEES
@@ -140,7 +150,9 @@ int computeVerticalComponent(double)
        *     r : radians from 0 to 2pi
        **************************************************/
        // your function goes here
-
+double radiansFromDegrees(double d) {
+    return (d / 360) * 2 * 3.14159265;
+}
        /**************************************************
         * PROMPT
         * A generic function to prompt the user for a double
@@ -149,7 +161,15 @@ int computeVerticalComponent(double)
         * OUTPUT
         *      response : the user's response
         ***************************************************/
-        // your function goes here
+        double prompt(string message)
+        {
+            double response;
+
+            cout << message;
+            cin >> response;
+
+            return response;
+        }
 
         /****************************************************************
          * MAIN
@@ -164,17 +184,20 @@ int main()
     double x = 83.0;//prompt("What is your position (m)? ");
     double aDegrees = -45;//prompt("What is the angle of the LM where 0 is up (degrees)? ");
     double t = 1.5;//prompt("What is the time interval (s)? ");
-    double aRadians;            // Angle in radians
-    double accelerationThrust;  // Acceleration due to thrust 
-    double ddxThrust;           // Horizontal acceleration due to thrust
-    double ddyThrust;           // Vertical acceleration due to thrust
-    double ddx;                 // Total horizontal acceleration
-    double ddy;                 // Total vertical acceleration
-    double v;                   // Total velocity
+    double aRadians = radiansFromDegrees(aDegrees);            // Angle in radians
+    double accelerationThrust = computeAcceleration (THRUST, WEIGHT);  // Acceleration due to thrust 
+    double ddxThrust = findHorizontalComponent(aRadians, accelerationThrust);           // Horizontal acceleration due to thrust
+    double ddyThrust = findVerticalComponent(aRadians, accelerationThrust);           // Vertical acceleration due to thrust
+    double ddx = computeAcceleration(ddxThrust, WEIGHT);                 // Total horizontal acceleration
+    double ddy = computeAcceleration(ddyThrust, WEIGHT);                 // Total vertical acceleration
+    double v = computeVelocity(((dx * dx) + (dy * dy)), (ddx * ddx) + (ddy * ddy), t) ;                   // Total velocity
 
     // Go through the simulator five times
       // your code goes here
-
+    y += dy;
+    x += dx;
+    dx += dx;
+    dy += dy;
       // Output
     cout.setf(ios::fixed | ios::showpoint);
     cout.precision(2);
@@ -182,6 +205,19 @@ int main()
     cout << "\tNew velocity:   (" << dx << ", " << dy << ")m/s\n";
     cout << "\tTotal velocity:  " << v << "m/s\n\n";
 
+    cout << "dx " << dx << endl;
+    cout << "dy " << dy << endl;
+    cout << "y " << y << endl;
+    cout << "x " << x << endl;
+    cout << "aDegrees " << aDegrees << endl;
+    cout << "t " << t << endl;
+    cout << "aRadians " << aRadians << endl;
+    cout << "acceleration Thrust " << accelerationThrust << endl;
+    cout << "ddxThrust " << ddxThrust << endl;
+    cout << "ddyThrust " << ddyThrust << endl;
+    cout << "ddx " << ddx << endl;
+    cout << "ddy " << ddy << endl;
+    cout << "v" << v << endl;
 
     return 0;
 }
