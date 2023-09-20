@@ -86,6 +86,7 @@ double computeVelocity(double v, double a, double t) {
     *     y : the vertical component of the total
     ***********************************************/
     // your function goes here
+https://prod.liveshare.vsengsaas.visualstudio.com/join?A7D3D3F14E67CA5E2837E531B428A7B93F3C
 int computeVerticalComponent(double)
     /***********************************************
      * COMPUTE HORIZONTAL COMPONENT
