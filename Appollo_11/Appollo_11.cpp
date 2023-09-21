@@ -136,8 +136,9 @@ double findHorizontalComponent(double a, double total) {
       *    total : total component
       ***********************************************/
       // your function goes here
-double findTotalComponent(int x, int y) {
-    return x ^ 2 + y ^ 2;
+double findTotalComponent(double x, double y) {
+    double total = (pow(x, 2) + pow(y, 2));
+    return sqrt(total);
 }
 
       /*************************************************
@@ -151,6 +152,7 @@ double findTotalComponent(int x, int y) {
        **************************************************/
        // your function goes here
 double radiansFromDegrees(double d) {
+    // d / 360 
     return (d / 360) * 2 * 3.14159265;
 }
        /**************************************************
@@ -186,11 +188,11 @@ int main()
     double t = 1.5;//prompt("What is the time interval (s)? ");
     double aRadians = radiansFromDegrees(aDegrees);            // Angle in radians
     double accelerationThrust = computeAcceleration (THRUST, WEIGHT);  // Acceleration due to thrust 
-    double ddxThrust = findHorizontalComponent(aRadians, accelerationThrust);           // Horizontal acceleration due to thrust
-    double ddyThrust = findVerticalComponent(aRadians, accelerationThrust);           // Vertical acceleration due to thrust
-    double ddx = ddxThrust;       //-2.105;          // Total horizontal acceleration
-    double ddy = ddyThrust + GRAVITY + .1092;  //0.48;               // Total vertical acceleration
-    double v = computeVelocity(sqrt((dx * dx) + (dy * dy)), sqrt((ddx * ddx) + (ddy * ddy)), t);                   // Total velocity
+    double ddxThrust = findHorizontalComponent(aRadians, THRUST);           // Horizontal acceleration due to thrust
+    double ddyThrust = findVerticalComponent(aRadians, THRUST);           // Vertical acceleration due to thrust
+    double ddx = computeAcceleration(ddxThrust,WEIGHT) ;       //-2.105;          // Total horizontal acceleration
+    double ddy = computeAcceleration(ddyThrust, WEIGHT) + GRAVITY;  //0.48;               // Total vertical acceleration
+    double v;                   // Total velocity
 
     // Go through the simulator five times
     for (int _ = 0; _ < 5; _++) {
@@ -199,7 +201,7 @@ int main()
         dy = computeVelocity(dy, ddy, t);
         x = computeDistance(x, dx, ddx, t);
         y = computeDistance(y, dy, ddy, t);
-        v = computeVelocity(sqrt((dx * dx) + (dy * dy)), sqrt((ddx * ddx) + (ddy * ddy)), t);
+        v = findTotalComponent(dx,dy);
         // Output
         cout.setf(ios::fixed | ios::showpoint);
         cout.precision(2);
