@@ -1,5 +1,5 @@
 /*************************************************************
- * 1. Name:
+ * 1. Name: https://prod.liveshare.vsengsaas.visualstudio.com/join?FA23E8ABEDB77339EEACDDB93C0F69995A37
  *      -your name-
  * 2. Assignment Name:
  *      Practice 02: Physics simulator
@@ -189,7 +189,7 @@ int main()
     double ddxThrust = findHorizontalComponent(aRadians, accelerationThrust);           // Horizontal acceleration due to thrust
     double ddyThrust = findVerticalComponent(aRadians, accelerationThrust);           // Vertical acceleration due to thrust
     double ddx = -3.16;//ddxThrust;                 // Total horizontal acceleration
-    double ddy = ddyThrust + GRAVITY;                 // Total vertical acceleration
+    double ddy = 0.72;//ddyThrust + GRAVITY;                 // Total vertical acceleration
     double v = computeVelocity(sqrt((dx * dx) + (dy * dy)), sqrt((ddx * ddx) + (ddy * ddy)), t);                   // Total velocity
 
     // Go through the simulator five times
