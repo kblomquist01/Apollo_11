@@ -188,22 +188,26 @@ int main()
     double accelerationThrust = computeAcceleration (THRUST, WEIGHT);  // Acceleration due to thrust 
     double ddxThrust = findHorizontalComponent(aRadians, accelerationThrust);           // Horizontal acceleration due to thrust
     double ddyThrust = findVerticalComponent(aRadians, accelerationThrust);           // Vertical acceleration due to thrust
-    double ddx = -3.16;//ddxThrust;                 // Total horizontal acceleration
-    double ddy = 0.72;//ddyThrust + GRAVITY;                 // Total vertical acceleration
+    double ddx = ddxThrust;       //-2.105;          // Total horizontal acceleration
+    double ddy = ddyThrust + GRAVITY + .1092;  //0.48;               // Total vertical acceleration
     double v = computeVelocity(sqrt((dx * dx) + (dy * dy)), sqrt((ddx * ddx) + (ddy * ddy)), t);                   // Total velocity
 
     // Go through the simulator five times
-      // your code goes here
-    x = computeDistance(x, dx, ddx, t);
-    y = computeDistance(y, dy, ddy, t);
-    dx += ddx;
-    dy += ddy;
-      // Output
-    cout.setf(ios::fixed | ios::showpoint);
-    cout.precision(2);
-    cout << "\tNew position:   (" << x << ", " << y << ")m\n";
-    cout << "\tNew velocity:   (" << dx << ", " << dy << ")m/s\n";
-    cout << "\tTotal velocity:  " << v << "m/s\n\n";
+    for (int _ = 0; _ < 5; _++) {
+        // your code goes here
+        dx = computeVelocity(dx, ddx, t);
+        dy = computeVelocity(dy, ddy, t);
+        x = computeDistance(x, dx, ddx, t);
+        y = computeDistance(y, dy, ddy, t);
+        v = computeVelocity(sqrt((dx * dx) + (dy * dy)), sqrt((ddx * ddx) + (ddy * ddy)), t);
+        // Output
+        cout.setf(ios::fixed | ios::showpoint);
+        cout.precision(2);
+        cout << "\tNew position:   (" << x << ", " << y << ")m\n";
+        cout << "\tNew velocity:   (" << dx << ", " << dy << ")m/s\n";
+        cout << "\tTotal velocity:  " << v << "m/s\n\n";
+    }
+    
 
     cout << "dx " << dx << endl;
     cout << "dy " << dy << endl;
