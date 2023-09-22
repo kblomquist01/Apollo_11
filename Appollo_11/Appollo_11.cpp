@@ -1,5 +1,5 @@
 /*************************************************************
- * 1. Name: https://prod.liveshare.vsengsaas.visualstudio.com/join?FA23E8ABEDB77339EEACDDB93C0F69995A37
+ * 1. Name: https://prod.liveshare.vsengsaas.visualstudio.com/join?4EA646C847464CA7C37D25BEA34779DEEC67
  *      -your name-
  * 2. Assignment Name:
  *      Practice 02: Physics simulator
@@ -186,6 +186,7 @@ int main()
     double x = 83.0;//prompt("What is your position (m)? ");
     double aDegrees = -45;//prompt("What is the angle of the LM where 0 is up (degrees)? ");
     double t = 1.5;//prompt("What is the time interval (s)? ");
+
     double aRadians = radiansFromDegrees(aDegrees);            // Angle in radians
     double accelerationThrust = computeAcceleration (THRUST, WEIGHT);  // Acceleration due to thrust 
     double ddxThrust = findHorizontalComponent(aRadians, THRUST);           // Horizontal acceleration due to thrust
