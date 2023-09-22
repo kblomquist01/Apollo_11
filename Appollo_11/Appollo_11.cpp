@@ -174,57 +174,50 @@ double radiansFromDegrees(double d) {
         }
 
         /****************************************************************
+         * 5 SECONDS
+         * Calculates the next 5 seconds for the rover
+         ****************************************************************/
+        void fiveSeconds(double dx, double dy, double y, double x, double aDegrees, double t, double currentTime) {
+
+            double aRadians = radiansFromDegrees(aDegrees);            // Angle in radians
+            double accelerationThrust = computeAcceleration(THRUST, WEIGHT);  // Acceleration due to thrust 
+            double ddxThrust = findHorizontalComponent(aRadians, THRUST);           // Horizontal acceleration due to thrust
+            double ddyThrust = findVerticalComponent(aRadians, THRUST);           // Vertical acceleration due to thrust
+            double ddx = computeAcceleration(ddxThrust, WEIGHT);       //-2.105;          // Total horizontal acceleration
+            double ddy = computeAcceleration(ddyThrust, WEIGHT) + GRAVITY;  //0.48;               // Total vertical acceleration
+            double v;                   // Total velocity
+
+            for (int _ = 0; _ < 5; _++) {
+                // your code goes here
+                dx = computeVelocity(dx, ddx, t);
+                dy = computeVelocity(dy, ddy, t);
+                x = computeDistance(x, dx, ddx, t);
+                y = computeDistance(y, dy, ddy, t);
+                v = findTotalComponent(dx, dy);
+                // Output
+                cout.setf(ios::fixed | ios::showpoint);
+                cout.precision(2);
+                cout << "\tNew position:   (" << x << ", " << y << ")m\n";
+                cout << "\tNew velocity:   (" << dx << ", " << dy << ")m/s\n";
+                cout << "\tTotal velocity:  " << v << "m/s\n\n";
+            }
+        }
+        /****************************************************************
          * MAIN
          * Prompt for input, compute new position, and display output
          ****************************************************************/
 int main()
 {
     // Prompt for input and variables to be computed
-    double dx = 0;//prompt("What is your horizontal velocity (m/s)? ");
-    double dy = -10.3;//prompt("What is your vertical velocity (m/s)? ");
-    double y = 58.2;//prompt("What is your altitude (m)? ");
-    double x = 83.0;//prompt("What is your position (m)? ");
-    double aDegrees = -45;//prompt("What is the angle of the LM where 0 is up (degrees)? ");
-    double t = 1.5;//prompt("What is the time interval (s)? ");
+    double dx = prompt("What is your horizontal velocity (m/s)? ");
+    double dy = prompt("What is your vertical velocity (m/s)? ");
+    double y = prompt("What is your altitude (m)? ");
+    double x = prompt("What is your position (m)? ");
+    double aDegrees = prompt("What is the angle of the LM where 0 is up (degrees)? ");
+    double t = 1;//prompt("What is the time interval (s)? ");
+    double currentTime = 0;
 
-    double aRadians = radiansFromDegrees(aDegrees);            // Angle in radians
-    double accelerationThrust = computeAcceleration (THRUST, WEIGHT);  // Acceleration due to thrust 
-    double ddxThrust = findHorizontalComponent(aRadians, THRUST);           // Horizontal acceleration due to thrust
-    double ddyThrust = findVerticalComponent(aRadians, THRUST);           // Vertical acceleration due to thrust
-    double ddx = computeAcceleration(ddxThrust,WEIGHT) ;       //-2.105;          // Total horizontal acceleration
-    double ddy = computeAcceleration(ddyThrust, WEIGHT) + GRAVITY;  //0.48;               // Total vertical acceleration
-    double v;                   // Total velocity
-
-    // Go through the simulator five times
-    for (int _ = 0; _ < 5; _++) {
-        // your code goes here
-        dx = computeVelocity(dx, ddx, t);
-        dy = computeVelocity(dy, ddy, t);
-        x = computeDistance(x, dx, ddx, t);
-        y = computeDistance(y, dy, ddy, t);
-        v = findTotalComponent(dx,dy);
-        // Output
-        cout.setf(ios::fixed | ios::showpoint);
-        cout.precision(2);
-        cout << "\tNew position:   (" << x << ", " << y << ")m\n";
-        cout << "\tNew velocity:   (" << dx << ", " << dy << ")m/s\n";
-        cout << "\tTotal velocity:  " << v << "m/s\n\n";
-    }
     
-
-    cout << "dx " << dx << endl;
-    cout << "dy " << dy << endl;
-    cout << "y " << y << endl;
-    cout << "x " << x << endl;
-    cout << "aDegrees " << aDegrees << endl;
-    cout << "t " << t << endl;
-    cout << "aRadians " << aRadians << endl;
-    cout << "acceleration Thrust " << accelerationThrust << endl;
-    cout << "ddxThrust " << ddxThrust << endl;
-    cout << "ddyThrust " << ddyThrust << endl;
-    cout << "ddx " << ddx << endl;
-    cout << "ddy " << ddy << endl;
-    cout << "v" << v << endl;
 
     return 0;
 }
